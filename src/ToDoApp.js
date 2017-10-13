@@ -30,15 +30,7 @@ export default class ToDoApp extends Component {
     }
 
     completeToDoItem(item){
-        /*var newList = [];
-        for(let index = 0; index< this.state.todos.length; index++){
-            if(this.state.todos[index].name == item)
-             this.state.todos[index].isCompleted = true;
-            newList.push(this.state.todos[index]);
-        }
-        this.setState({todos: newList});*/
-
-        let updateToDoList = this.state.todos.map(
+       let updateToDoList = this.state.todos.map(
                                          (todo) => {
                                              if(todo.name == item)
                                                  todo.isCompleted = true;
