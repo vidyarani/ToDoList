@@ -6,8 +6,8 @@ export default class ToDos extends Component {
 
     createToDoItems(){
         return this.props.todos.map((todo) => {
-            return <ToDoItem title = {todo.name} action = {this.props.deleteToDoItem}
-                completeAction = {this.props.completeToDoItem} isCompleted={todo.isCompleted}
+            return <ToDoItem title = {todo.name} id = {todo.id} action = {this.props.deleteToDoItem}
+                completeAction = {this.props.completeToDoItem} isCompleted={todo.completed}
             />
         });
     }

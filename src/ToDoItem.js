@@ -18,8 +18,8 @@ export default class ToDoItem extends Component {
                      ) : (
                            <div>
                                <span>{this.props.title}</span>
-                            <button onClick = {() => this.deleteToDo(this.props.title)}>Delete</button>
-                            <button onClick = {() => this.completeToDo(this.props.title)}> Complete </button>
+                            <button onClick = {() => this.deleteToDo(this.props.id)}> Delete </button>
+                            <button onClick = {() => this.completeToDo(this.props.id)}> Complete </button>
                            </div>
                          )}
                                </div>

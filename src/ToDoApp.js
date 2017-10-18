@@ -6,38 +6,48 @@ export default class ToDoApp extends Component {
     constructor(){
         super();
         this.state = {
-            todos: [
-                {name: 'Learn React', isCompleted: false},
-                {name: 'Complete Project', isCompleted: false}
-            ]
+            todos: []
         };
-
 
         this.addToDoItem = this.addToDoItem.bind(this);
         this.deleteToDoItem = this.deleteToDoItem.bind(this);
         this.completeToDoItem = this.completeToDoItem.bind(this);
-    }
-    deleteToDoItem(item){
-        var deleteFilter = todo => todo.name != item;
-        this.setState(state => ({
-                    todos: state.todos.filter(deleteFilter)
-        }));
+        this.loadToDoList = this.loadToDoList.bind(this);
     }
 
-    addToDoItem(item){
-        let newItem = {name: item, isCompleted:false};
-        this.setState({todos: this.state.todos.concat(newItem)});
+    componentWillMount(){
+     this.loadToDoList();
     }
 
-    completeToDoItem(item){
-       let updateToDoList = this.state.todos.map(
-                                         (todo) => {
-                                             if(todo.name == item)
-                                                 todo.isCompleted = true;
-                                             return todo;
-                                             }
-                                         );
-        this.setState({todos: updateToDoList});
+    loadToDoList(){
+        fetch('/list')
+                    .then(result => result.json())
+                    .then(todos => this.setState({todos: todos}));
+    }
+
+    deleteToDoItem(itemId){
+        var self = this;
+        fetch('/delete/'+ itemId, {method: "DELETE"})
+            .then(function(response){
+                self.loadToDoList();
+            });
+    }
+
+    addToDoItem(itemName){
+        var self = this;
+        fetch('/add/' + itemName, {method: "POST"
+            }).then(function(response){
+                self.loadToDoList();
+            })
+    }
+
+    completeToDoItem(itemId){
+        var self = this;
+        fetch('/complete/' + itemId, {method: "PATCH"
+            }).then(function(response){
+                self.loadToDoList();
+            }
+        );
     }
 
     render(){
